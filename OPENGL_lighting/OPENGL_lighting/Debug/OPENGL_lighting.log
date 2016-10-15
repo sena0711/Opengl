@@ -1,8 +1,0 @@
-﻿  main.cpp
-f:\programing\opengl\opengl_lighting\opengl_lighting\main.cpp(8): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-f:\programing\opengl\opengl_lighting\opengl_lighting\main.cpp(9): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-f:\programing\opengl\opengl_lighting\opengl_lighting\main.cpp(10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-f:\programing\opengl\opengl_lighting\opengl_lighting\main.cpp(11): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-f:\programing\opengl\opengl_lighting\opengl_lighting\main.cpp(18): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
-  OPENGL_lighting.vcxproj -> F:\Programing\OPENGL\OPENGL_lighting\Debug\OPENGL_lighting.exe
-  OPENGL_lighting.vcxproj -> F:\Programing\OPENGL\OPENGL_lighting\Debug\OPENGL_lighting.pdb (Partial PDB)
