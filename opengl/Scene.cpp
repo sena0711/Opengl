@@ -165,6 +165,9 @@ void CScene::Render(Camera camera)
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
 
+
+
+
 	// Also draw the lamp object, again binding the appropriate shader
 
 	ResourceManager::GetShader("lampShader").Use().SetMatrix4("view", view);
