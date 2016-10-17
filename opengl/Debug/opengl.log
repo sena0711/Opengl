@@ -1,9 +1,7 @@
 ﻿  Scene.cpp
-f:\programing\opengl\opengl\scene.cpp(129): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-f:\programing\opengl\opengl\scene.cpp(130): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-f:\programing\opengl\opengl\scene.cpp(138): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-f:\programing\opengl\opengl\scene.cpp(139): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-f:\programing\opengl\opengl\scene.cpp(140): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+f:\programing\opengl\opengl\scene.cpp(43): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  main.cpp
   opengl.vcxproj -> F:\Programing\Opengl\Debug\opengl.exe
   opengl.vcxproj -> F:\Programing\Opengl\Debug\opengl.pdb (Partial PDB)

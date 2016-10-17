@@ -3,7 +3,11 @@
 
 #include <GL/glew.h>
 #include <glm/glm/glm.hpp>
-
+enum ObjectShape {
+	PYRAMID,
+	CUBE,
+	SPHERE,
+};
 class CSceneObject
 {
 public:

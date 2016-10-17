@@ -10,6 +10,12 @@
 #include <glm/glm/glm.hpp>
 #include <glm/glm/gtc/matrix_transform.hpp>
 #include <glm/glm/gtc/type_ptr.hpp>
+
+#include <vector>
+#include <string>
+
+class CSceneLevel;
+
 enum GameState {
 	GAME_ACTIVE,
 	GAME_MENU,
@@ -22,6 +28,9 @@ public:
 	GameState              State;
 	GLboolean              Keys[1024];
 	GLuint                 Width, Height;
+	// vector
+	std::vector<CSceneLevel> Levelvec;
+	
 	// Constructor/Destructor
 	CScene(GLuint width, GLuint height);
 	~CScene();
@@ -33,9 +42,10 @@ public:
 	void Render(Camera camera);
 
 private:
-	glm::vec3 lightPos;
-	GLuint VBO, containerVAO;
-	GLuint lightVAO;
+	GLuint					NumberOfLevels;
+	int					currentLevel;
+
+	
 };
 
 #endif

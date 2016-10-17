@@ -122,6 +122,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MovingLight.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneLevel.cpp" />
@@ -133,7 +134,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="MovingLight.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneLevel.h" />
