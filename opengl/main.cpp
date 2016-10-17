@@ -18,6 +18,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void do_movement();
+GLuint generateMultiSampleTexture(GLuint samples);
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -32,6 +33,10 @@ bool    keys[1024];
 // Deltatime
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
 GLfloat lastFrame = 0.0f;  	// Time of last frame
+
+
+//ATIALISING framebuffer
+GLuint framebuffer;
 
 
 CScene game(WIDTH, HEIGHT);
@@ -72,12 +77,40 @@ int main()
 	// Define the viewport dimensions
 	glViewport(0, 0, WIDTH, HEIGHT);
 
+	
 	// OpenGL options
+	glEnable(GL_MULTISAMPLE); // multi sampling for antialising
 	glEnable(GL_DEPTH_TEST);
 
+	
 	game.Init();
 
 	game.State = GAME_ACTIVE;
+
+
+
+	//  Antialising
+	// Framebuffers
+
+	// Framebuffers
+
+	glGenFramebuffers(1, &framebuffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+	// Create a multisampled color attachment texture
+	GLuint textureColorBufferMultiSampled = generateMultiSampleTexture(4);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, textureColorBufferMultiSampled, 0);
+	// Create a renderbuffer object for depth and stencil attachments
+	GLuint rbo;
+	glGenRenderbuffers(1, &rbo);
+	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+	glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_DEPTH24_STENCIL8, WIDTH, HEIGHT);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -93,10 +126,19 @@ int main()
 		game.ProcessInput(deltaTime);
 		game.Update(deltaTime);
 		// Clear the colorbuffer
+
+		// 1. Draw scene as normal in multisampled buffers
+		glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		game.Render(camera);
+
+		// 2. Now blit multisampled buffer(s) to default framebuffers
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, framebuffer);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+		glBlitFramebuffer(0, 0, WIDTH, HEIGHT, 0, 0, WIDTH, HEIGHT, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+
 	
 		glfwSwapBuffers(window);
 	}
@@ -138,6 +180,18 @@ void do_movement()
 		camera.ProcessKeyboard(RIGHT, deltaTime);
 	
 
+}
+
+GLuint generateMultiSampleTexture(GLuint samples)
+{
+	GLuint texture;
+	glGenTextures(1, &texture);
+
+	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, texture);
+	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, GL_RGB, WIDTH, HEIGHT, GL_TRUE);
+	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
+
+	return texture;
 }
 
 bool firstMouse = true;

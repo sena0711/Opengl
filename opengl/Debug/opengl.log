@@ -1,14 +1,8 @@
-﻿  SceneLevel.cpp
-f:\programing\opengl\opengl\libraries\include\assimp\matrix4x4.h : warning C4819: The file contains a character that cannot be represented in the current code page (949). Save the file in Unicode format to prevent data loss
-f:\programing\opengl\opengl\libraries\include\assimp\matrix3x3.inl : warning C4819: The file contains a character that cannot be represented in the current code page (949). Save the file in Unicode format to prevent data loss
-f:\programing\opengl\opengl\scenelevel.cpp(225): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-f:\programing\opengl\opengl\scenelevel.cpp(226): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-f:\programing\opengl\opengl\scenelevel.cpp(234): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-f:\programing\opengl\opengl\scenelevel.cpp(235): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-f:\programing\opengl\opengl\scenelevel.cpp(236): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  Scene.cpp
+﻿  main.cpp
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'F:\Programing\Opengl\Debug\SOIL.pdb'; linking object as if no debug info
+SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'F:\Programing\Opengl\Debug\SOIL.pdb'; linking object as if no debug info
+SOIL.lib(SOIL.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(SOIL.obj)' or at 'F:\Programing\Opengl\Debug\SOIL.pdb'; linking object as if no debug info
+SOIL.lib(stb_image_aug.obj) : warning LNK4099: PDB 'SOIL.pdb' was not found with 'SOIL.lib(stb_image_aug.obj)' or at 'F:\Programing\Opengl\Debug\SOIL.pdb'; linking object as if no debug info
   opengl.vcxproj -> F:\Programing\Opengl\Debug\opengl.exe
   opengl.vcxproj -> F:\Programing\Opengl\Debug\opengl.pdb (Partial PDB)
