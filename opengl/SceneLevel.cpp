@@ -1,6 +1,8 @@
 #include "camera.h"
 #include <iostream>
 #include <cmath>
+
+
 //#define GLEW_STATIC
 #include <GL/glew.h>
 // GLFW
@@ -13,7 +15,13 @@
 #include <SOIL/SOIL.h>
 
 #include "SceneLevel.h"
+#include "MaterialBox.h"
+#include "LoadModel.h"
 
+//MaterialBox matbox;
+
+
+GLuint loadCubemap(vector<const GLchar*> faces);
 
 
 CSceneLevel::CSceneLevel()
@@ -33,7 +41,13 @@ void CSceneLevel::InitLevel(int level)
 	//// Build and compile our shader program
 	ResourceManager::LoadShader("Assets/Shaders/materials.vs", "Assets/Shaders/materials.fs", nullptr, "lightingShader");
 	ResourceManager::LoadShader("Assets/Shaders/lamp.vs", "Assets/Shaders/lamp.fs", nullptr, "lampShader");
+	ResourceManager::LoadShader("Assets/Shaders/model.vs", "Assets/Shaders/model.fs", nullptr, "modelShader");
+	
+	ResourceManager::LoadShader("Assets/Shaders/skybox.vs", "Assets/Shaders/skybox.fs", nullptr, "SkyboxShader");
 
+	/*CLoadModel CastleModel("Assets/Models/castle/Castle OBJ.obj");
+	CLoadModel NanoModel("Assets/Models/nanosuit/nanosuit.obj");*/
+	//ResourceManager::LoadShader("Assets/Shaders/lamp.vs", "Assets/Shaders/lamp.fs", nullptr, "CastleModel");
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	GLfloat vertices[] = {
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -78,6 +92,52 @@ void CSceneLevel::InitLevel(int level)
 		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 	};
+
+	// Skybox vertices
+	GLfloat skyboxVertices[] = {
+		// Positions          
+		-1.0f,  1.0f, -1.0f,
+		-1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+
+		-1.0f, -1.0f,  1.0f,
+		-1.0f, -1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,
+		-1.0f,  1.0f,  1.0f,
+		-1.0f, -1.0f,  1.0f,
+
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+
+		-1.0f, -1.0f,  1.0f,
+		-1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f, -1.0f,  1.0f,
+		-1.0f, -1.0f,  1.0f,
+
+		-1.0f,  1.0f, -1.0f,
+		1.0f,  1.0f, -1.0f,
+		1.0f,  1.0f,  1.0f,
+		1.0f,  1.0f,  1.0f,
+		-1.0f,  1.0f,  1.0f,
+		-1.0f,  1.0f, -1.0f,
+
+		-1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f,  1.0f,
+		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f,  1.0f,
+		1.0f, -1.0f,  1.0f
+	};
 	// First, set the container's VAO (and VBO)
 
 	glGenVertexArrays(1, &containerVAO);
@@ -95,9 +155,10 @@ void CSceneLevel::InitLevel(int level)
 	glEnableVertexAttribArray(1);
 	glBindVertexArray(0);
 
+	//matbox.Init();
 
 
-	//the light's VAO (VBO stays the same. After all, the vertices are the same for the light object (also a 3D cube))
+//	the light's VAO (VBO stays the same. After all, the vertices are the same for the light object (also a 3D cube))
 
 	glGenVertexArrays(1, &lightVAO);
 	glBindVertexArray(lightVAO);
@@ -108,6 +169,29 @@ void CSceneLevel::InitLevel(int level)
 	glEnableVertexAttribArray(0);
 	glBindVertexArray(0);
 
+
+
+	// Setup skybox VAO
+
+	glGenVertexArrays(1, &skyboxVAO);
+	glGenBuffers(1, &skyboxVBO);
+	glBindVertexArray(skyboxVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	glBindVertexArray(0);
+
+	// Cubemap/Skybox
+	vector<const GLchar*> faces;
+	faces.push_back("Assets/Skybox/right.jpg");
+	faces.push_back("Assets/Skybox/left.jpg");
+	faces.push_back("Assets/Skybox/top.jpg");
+	faces.push_back("Assets/Skybox/bottom.jpg");
+	faces.push_back("Assets/Skybox/back.jpg");
+	faces.push_back("Assets/Skybox/front.jpg");
+	 cubemapTexture = loadCubemap(faces);
+
 }
 
 void CSceneLevel::Load(const GLchar * file, GLuint levelWidth, GLuint levelHeight)
@@ -116,7 +200,28 @@ void CSceneLevel::Load(const GLchar * file, GLuint levelWidth, GLuint levelHeigh
 
 void CSceneLevel::Render(Camera camera)
 {
-	// Change the light's position values over time (can be done anywhere in the game loop actually, but try to do it at least before using the light source positions)
+	
+	// Draw skybox first
+	glDepthMask(GL_FALSE);// Remember to turn depth writing off for skybox
+	
+	glm::mat4 view = glm::mat4(glm::mat3(camera.GetViewMatrix()));	// Remove any translation component of the view matrix
+	glm::mat4 projection = glm::perspective(camera.Zoom, (float)Width / (float)Height, 0.1f, 100.0f);
+
+						  // Activate skybox shader
+	
+	ResourceManager::GetShader("SkyboxShader").Use().SetMatrix4("view", view);
+	ResourceManager::GetShader("SkyboxShader").Use().SetMatrix4("projection", projection);
+
+	// Skybox cube
+	glBindVertexArray(skyboxVAO);
+	glActiveTexture(GL_TEXTURE0);
+	ResourceManager::GetShader("SkyboxShader").Use().SetInteger("skybox", 0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glBindVertexArray(0);
+
+	glDepthMask(GL_TRUE);
+						  // Change the light's position values over time (can be done anywhere in the game loop actually, but try to do it at least before using the light source positions)
 	lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
 	lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
 
@@ -141,9 +246,9 @@ void CSceneLevel::Render(Camera camera)
 	ResourceManager::GetShader("lightingShader").Use().SetFloat("material.shininess", 32.0f);
 
 	// Create camera transformations
-	glm::mat4 view;
+
 	view = camera.GetViewMatrix();
-	glm::mat4 projection = glm::perspective(camera.Zoom, (float)Width / (float)Height, 0.1f, 100.0f);
+	projection = glm::perspective(camera.Zoom, (float)Width / (float)Height, 0.1f, 100.0f);
 	// Get the uniform locations
 
 	ResourceManager::GetShader("lightingShader").Use().SetMatrix4("view", view);
@@ -181,6 +286,34 @@ void CSceneLevel::Render(Camera camera)
 GLboolean CSceneLevel::IsCompleted()
 {
 	return GLboolean();
+}
+
+GLuint loadCubemap(vector<const GLchar*> faces)
+{
+	GLuint textureID;
+	glGenTextures(1, &textureID);
+	glActiveTexture(GL_TEXTURE0);
+
+	int width, height;
+	unsigned char* image;
+
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+	for (GLuint i = 0; i < faces.size(); i++)
+	{
+		image = SOIL_load_image(faces[i], &width, &height, 0, SOIL_LOAD_RGB);
+		glTexImage2D(
+			GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0,
+			GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image
+			);
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+
+	return textureID;
 }
 
 void CSceneLevel::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidth, GLuint levelHeight)

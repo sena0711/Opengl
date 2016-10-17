@@ -7,18 +7,6 @@
 #include <GL/glew.h>
 // GLFW
 
-#include <glm/glm/glm.hpp> //vec3, vec4, ivec4, mat4
-#include <glm/glm/gtc/matrix_transform.hpp> //translate, rotate, scale, perspective 
-#include <glm/glm/gtc/type_ptr.hpp>
-#include <GLFW/glfw3.h>
-//Other lib
-#include <SOIL/SOIL.h>
-// Other includes
-
-//#include "mesh.h"
-//#include "model.h"
-#include "shader.h"
-#include "ResourceManager.h"
 #include "SceneLevel.h"
 
 

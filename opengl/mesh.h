@@ -8,10 +8,16 @@
 using namespace std;
 // GL Includes
 #include <GL/glew.h> // Contains all the necessery OpenGL includes
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
-#include "shader.h"
+#include <glm/glm/glm.hpp> //vec3, vec4, ivec4, mat4
+#include <glm/glm/gtc/matrix_transform.hpp> 
+
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
+#include "Shader.h"
 struct Vertex {
     // Position
     glm::vec3 Position;
@@ -31,7 +37,7 @@ struct Texture {
     aiString path;
 };
 
-class Mesh {
+class CMesh{
 public:
     /*  Mesh Data  */
     vector<Vertex> vertices;
@@ -41,7 +47,7 @@ public:
 
     /*  Functions  */
     // Constructor
-    Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Texture> textures)
+	CMesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Texture> textures)
     {
         this->vertices = vertices;
         this->indices = indices;
@@ -52,7 +58,7 @@ public:
     }
 
     // Render the mesh
-    void Draw(Shader shader) 
+    void Draw(CShader shader) 
     {
         // Bind appropriate textures
         GLuint diffuseNr = 1;
@@ -138,6 +144,4 @@ private:
         glBindVertexArray(0);
     }
 };
-
-
 

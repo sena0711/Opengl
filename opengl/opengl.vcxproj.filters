@@ -41,15 +41,12 @@
     <ClCompile Include="MovingLight.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="MaterialBox.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h">
-      <Filter>Frame</Filter>
-    </ClInclude>
-    <ClInclude Include="mesh.h">
-      <Filter>Frame</Filter>
-    </ClInclude>
-    <ClInclude Include="model.h">
       <Filter>Frame</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
@@ -72,6 +69,15 @@
     </ClInclude>
     <ClInclude Include="MovingLight.h">
       <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialBox.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadModel.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Frame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +103,18 @@
       <Filter>Resource</Filter>
     </None>
     <None Include="Assets\Shaders\Triangle.vs">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="Assets\Shaders\model.fs">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="Assets\Shaders\model.vs">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="Assets\Shaders\skybox.fs">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="Assets\Shaders\skybox.vs">
       <Filter>Resource</Filter>
     </None>
   </ItemGroup>

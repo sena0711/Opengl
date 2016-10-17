@@ -1,6 +1,5 @@
 #ifndef SCENELEVEL_H
 #define SCENELEVEL_H
-#include <vector>
 
 #include <GL/glew.h>
 #include <glm/glm/glm.hpp>
@@ -26,6 +25,8 @@ public:
 	void      Render(Camera camera);
 	// Check if the level is completed (all non-solid tiles are destroyed)
 	GLboolean IsCompleted();
+
+
 private:
 	// Initialize level from tile data
 	void      init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidth, GLuint levelHeight);
@@ -35,6 +36,8 @@ private:
 	glm::vec3 lightPos;
 	GLuint VBO, containerVAO;
 	GLuint lightVAO;
+	GLuint skyboxVAO, skyboxVBO;
+	GLuint cubemapTexture;
 };
 
 #endif

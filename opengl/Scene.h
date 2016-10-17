@@ -42,7 +42,7 @@ public:
 	void Render(Camera camera);
 
 private:
-	GLuint					NumberOfLevels;
+	int					NumberOfLevels;
 	int					currentLevel;
 
 	
