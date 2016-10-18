@@ -18,6 +18,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void do_movement();
+void back_Culling();
+bool enableCulling = false;
 GLuint generateMultiSampleTexture(GLuint samples);
 
 // Window dimensions
@@ -122,6 +124,7 @@ int main()
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
 		do_movement();
+		back_Culling();
 
 		game.ProcessInput(deltaTime);
 		game.Update(deltaTime);
@@ -167,6 +170,27 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 }
 
+void back_Culling()
+{
+	if (keys[GLFW_KEY_B])
+	{
+		if (enableCulling == false)
+		{
+			enableCulling = true;
+			glEnable(GL_CULL_FACE);
+			glCullFace(GL_BACK);
+			glFrontFace(GL_CCW);
+		}
+		else
+		{
+			enableCulling = false;
+			glDisable(GL_CULL_FACE);
+		}
+		
+	}
+		
+
+}
 void do_movement()
 {
 	// Camera controls
