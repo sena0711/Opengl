@@ -229,6 +229,18 @@ void CSceneLevel::Render(Camera camera)
 	glBindVertexArray(0);
 
 	glDepthMask(GL_TRUE);
+
+
+	glEnable(GL_FOG);
+
+	glFogi(GL_FOG_MODE, GL_LINEAR);
+	glFogi(GL_FOG_INDEX, 32);
+	glFogf(GL_FOG_START, 1.0);
+	glFogf(GL_FOG_END, 6.0);
+	glHint(GL_FOG_HINT, GL_NICEST);
+	glClearIndex((GLfloat)(32 + 16 - 1));
+
+
 						  // Change the light's position values over time (can be done anywhere in the game loop actually, but try to do it at least before using the light source positions)
 	lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
 	lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;

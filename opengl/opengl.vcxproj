@@ -147,6 +147,8 @@
   <ItemGroup>
     <None Include="Assets\Shaders\basic_lighting.fs" />
     <None Include="Assets\Shaders\basic_lighting.vs" />
+    <None Include="Assets\Shaders\fog.fs" />
+    <None Include="Assets\Shaders\fog.vs" />
     <None Include="Assets\Shaders\lamp.fs" />
     <None Include="Assets\Shaders\lamp.vs" />
     <None Include="Assets\Shaders\materials.fs" />

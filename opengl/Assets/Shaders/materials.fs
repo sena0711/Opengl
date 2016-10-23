@@ -16,7 +16,10 @@ struct Light {
 
 in vec3 FragPos;  
 in vec3 Normal;  
-  
+
+// for Fog
+in vec4 mWorldPos;
+//
 out vec4 color;
   
 uniform vec3 viewPos;
@@ -42,4 +45,13 @@ void main()
         
     vec3 result = ambient + diffuse + specular;
     color = vec4(result, 1.0f);
+
+    
+     //fragment shader for fog
+    float d = distance(mWorldPos.xyz,viewPos);// cameraPos);
+    float lerp = (d - 5.0f)/10.f;
+    lerp = clamp(lerp, 0.0, 1.0);
+    vec4 vFogColor = vec4(0.5f, 0.5f, 0.5f, 1.0f);
+    color = mix(color, vFogColor, lerp);
 } 
+

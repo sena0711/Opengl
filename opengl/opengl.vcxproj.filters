@@ -117,5 +117,11 @@
     <None Include="Assets\Shaders\skybox.vs">
       <Filter>Resource</Filter>
     </None>
+    <None Include="Assets\Shaders\fog.fs">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="Assets\Shaders\fog.vs">
+      <Filter>Resource</Filter>
+    </None>
   </ItemGroup>
 </Project>
