@@ -17,16 +17,19 @@
 #include "SceneLevel.h"
 #include "MaterialBox.h"
 #include "LoadModel.h"
+#include "GeometryModel.h"
 
+
+GeometryModel *geomModel;
 //MaterialBox matbox;
 
 
 GLuint loadCubemap(vector<const GLchar*> faces);
 
 
-CSceneLevel::CSceneLevel()
+CSceneLevel::CSceneLevel(GLuint width, GLuint height)
 {
-	Width = 800, Height = 600;
+	Width = width, Height = height;
 }
 
 
@@ -45,6 +48,14 @@ void CSceneLevel::InitLevel(int level)
 	
 	ResourceManager::LoadShader("Assets/Shaders/skybox.vs", "Assets/Shaders/skybox.fs", nullptr, "SkyboxShader");
 
+
+	ResourceManager::LoadShader("Assets/Shaders/star.vs", "Assets/Shaders/star.fs", "Assets/Shaders/star.gs", "StarShader");
+	// geometrymodel star
+	geomModel = new GeometryModel();
+	geomModel->setPosition(glm::vec3(6.0f, 1.0f, 0.0f));
+
+	
+	
 	/*CLoadModel CastleModel("Assets/Models/castle/Castle OBJ.obj");
 	CLoadModel NanoModel("Assets/Models/nanosuit/nanosuit.obj");*/
 	//ResourceManager::LoadShader("Assets/Shaders/lamp.vs", "Assets/Shaders/lamp.fs", nullptr, "CastleModel");
@@ -213,7 +224,7 @@ void CSceneLevel::Render(Camera camera)
 	glDepthMask(GL_FALSE);// Remember to turn depth writing off for skybox
 	
 	glm::mat4 view = glm::mat4(glm::mat3(camera.GetViewMatrix()));	// Remove any translation component of the view matrix
-	glm::mat4 projection = glm::perspective(camera.Zoom, (float)Width / (float)Height, 0.1f, 100.0f);
+	glm::mat4 projection = glm::perspective(camera.Zoom, (float)Width / (float)Height, 0.1f, 10.0f);
 
 						  // Activate skybox shader
 	
@@ -268,7 +279,7 @@ void CSceneLevel::Render(Camera camera)
 	// Create camera transformations
 
 	view = camera.GetViewMatrix();
-	projection = glm::perspective(camera.Zoom, (float)Width / (float)Height, 0.1f, 100.0f);
+	//projection = glm::perspective(camera.Zoom, (float)Width / (float)Height, 0.1f, 100.0f);
 	// Get the uniform locations
 
 	ResourceManager::GetShader("lightingShader").Use().SetMatrix4("view", view);

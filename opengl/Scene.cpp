@@ -29,7 +29,7 @@ CScene::~CScene()
 void CScene::Init()
 {
 	for (int i = 0; i < NumberOfLevels; i++) {
-		CSceneLevel scene_level;
+		CSceneLevel scene_level(Width, Height);
 		scene_level.InitLevel(i);
 		Levelvec.push_back(scene_level);
 

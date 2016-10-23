@@ -44,6 +44,9 @@
     <ClCompile Include="MaterialBox.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="GeometryModel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h">
@@ -78,6 +81,9 @@
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryModel.h">
+      <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +127,15 @@
       <Filter>Resource</Filter>
     </None>
     <None Include="Assets\Shaders\fog.vs">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="Assets\Shaders\star.fs">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="Assets\Shaders\star.gs">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="Assets\Shaders\star.vs">
       <Filter>Resource</Filter>
     </None>
   </ItemGroup>

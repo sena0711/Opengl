@@ -15,7 +15,7 @@ class CSceneLevel
 public:
 
 	// Constructor& Destructor
-	CSceneLevel();
+	CSceneLevel(GLuint width, GLuint height);
 	~CSceneLevel();
 	void InitLevel(int level);
 	

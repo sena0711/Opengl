@@ -121,6 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GeometryModel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MaterialBox.cpp" />
     <ClCompile Include="MovingLight.cpp" />
@@ -133,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="GeometryModel.h" />
     <ClInclude Include="LoadModel.h" />
     <ClInclude Include="MaterialBox.h" />
     <ClInclude Include="Mesh.h" />
@@ -157,6 +159,9 @@
     <None Include="Assets\Shaders\model.vs" />
     <None Include="Assets\Shaders\skybox.fs" />
     <None Include="Assets\Shaders\skybox.vs" />
+    <None Include="Assets\Shaders\star.fs" />
+    <None Include="Assets\Shaders\star.gs" />
+    <None Include="Assets\Shaders\star.vs" />
     <None Include="Assets\Shaders\Triangle.fs" />
     <None Include="Assets\Shaders\Triangle.vs" />
   </ItemGroup>
