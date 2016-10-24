@@ -2,7 +2,7 @@
 
 layout (points) in;
 //The max vertices being sent out is 3
-layout (triangle_strip, max_vertices = 3) out;
+layout (triangle_strip, max_vertices = 7) out;
 
 out vec3 outColor;
 
@@ -14,11 +14,26 @@ in VS_GS_VERTEX{
 
 void main() {
     outColor = gs_in[0].color;
-    gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(-2.0f, 0.0f, 0.0f, 0.0f);
+    
+	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, 3.0f, 0.0f, 0.0f);
+    EmitVertex();
+	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(-2.0f, 0.0f, 0.0f, 0.0f);
     EmitVertex();
     gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(2.0f, 0.0f, 0.0f, 0.0f);
     EmitVertex();
-    gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, 2.0f, 0.0f, 0.0f);
+
+
+	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, 2.0f, 0.0f, 0.0f);
     EmitVertex();
+
+	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(-2.0f, 2.0f, 0.0f, 0.0f);
+    EmitVertex();
+    gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(2.0f, 2.0f, 0.0f, 0.0f);
+    EmitVertex();
+    gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, -1.0f, 0.0f, 0.0f);
+    EmitVertex();
+
+
+
     EndPrimitive();
 }

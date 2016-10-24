@@ -26,7 +26,8 @@ void GeometryModel::render(Camera camera) {
 	model = glm::translate(model, Position);
 	glm::mat4 mvp = camera.GetProjectionMatrix() * camera.GetViewMatrix() * model;
 	ResourceManager::GetShader("StarShader").Use().SetMatrix4("mvp", mvp);
-
+	ResourceManager::GetShader("StarShader").Use().SetMatrix4("model", model);
+	ResourceManager::GetShader("StarShader").Use().SetVector3f("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
 	glBindVertexArray(m_VAO);
 	glDrawArrays(GL_POINTS, 0, 1);
 	glBindVertexArray(0);

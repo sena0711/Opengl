@@ -296,6 +296,9 @@ void CSceneLevel::Render(Camera camera)
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
 
+
+	/*glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glColor3f(1, 0.5, 0);*/
 	geomModel->render(camera);
 
 }

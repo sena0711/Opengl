@@ -9,6 +9,10 @@ out VS_GS_VERTEX{
     out mat4 mvp;
 } vs_out;
 
+
+out vec4 mWorldPos;
+
+uniform mat4 model;
 uniform mat4 mvp;
 
 void main(){
@@ -16,4 +20,9 @@ void main(){
     vs_out.color = color;
     vs_out.position = gl_Position;
     vs_out.mvp = mvp;
+
+	
+	// for  fog shader
+	mWorldPos = model *vec4(position, 1.0);
+	
 }
