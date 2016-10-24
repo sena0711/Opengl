@@ -16,7 +16,7 @@ void MaterialBox::Init()
 	shape = CUBE;
 	enablePosAttrib = true;
 	enableNormAttrib = true;
-	CSceneObject::init();
+//	CSceneObject::init();
 }
 
 void MaterialBox::Render()

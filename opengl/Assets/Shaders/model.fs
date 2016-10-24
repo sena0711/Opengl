@@ -11,6 +11,6 @@ uniform vec3 lightColor;
 void main()
 {    
    // color = vec4(result, 1.0f);
-	color = vec4(texture(texture_diffuse1, TexCoords));
-	//color = vec4(lightColor * objectColor, 1.0f);
+    color = vec4(texture(texture_diffuse1, TexCoords));
+   //color = vec4(lightColor * objectColor, 1.0f);
 }

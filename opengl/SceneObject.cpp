@@ -11,7 +11,34 @@ CSceneObject::~CSceneObject()
 {
 }
 
-void CSceneObject::init()
+void CSceneObject::Init(GLfloat * vertices, int stride )
+{
+	glBindVertexArray(m_VAO);
+	glGenBuffers(1, &m_VBO);
+	glGenVertexArrays(1, &m_VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), &vertices, GL_STATIC_DRAW);
+	
+	if (enablePosAttrib == true)
+	{
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), 0);
+	}
+	if (enableNormAttrib == true)
+	{
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	}
+	if (enableTextAttrib == true)
+	{
+		// Texture Coords Attribute
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+	}
+	glBindVertexArray(0);
+}
+
+void CSceneObject::Init()
 {
 	
 	GLfloat cubeVertices[] = {
@@ -107,11 +134,24 @@ void CSceneObject::init()
 	if (enableNormAttrib == true)
 	{
 		// Texture Coords Attribute
-		//glEnableVertexAttribArray(2);
-		//glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
 
 
 	}
 
 	glBindVertexArray(0);
+}
+
+void CSceneObject::ProcessKeyboard(Object_Movement direction, GLfloat deltaTime)
+{
+	GLfloat velocity = this->MovementSpeed * deltaTime;
+	if (direction == MOVE_FORWARD)
+		this->Position += this->Front * velocity;
+	if (direction == MOVE_BACKWARD)
+		this->Position -= this->Front * velocity;
+	if (direction == MOVE_LEFT)
+		this->Position -= this->Right * velocity;
+	if (direction == MOVE_RIGHT)
+		this->Position += this->Right * velocity;
 }

@@ -47,6 +47,9 @@
     <ClCompile Include="GeometryModel.cpp">
       <Filter>Models</Filter>
     </ClCompile>
+    <ClCompile Include="TessModel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h">
@@ -85,14 +88,11 @@
     <ClInclude Include="GeometryModel.h">
       <Filter>Models</Filter>
     </ClInclude>
+    <ClInclude Include="TessModel.h">
+      <Filter>Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\basic_lighting.fs">
-      <Filter>Resource</Filter>
-    </None>
-    <None Include="Assets\Shaders\basic_lighting.vs">
-      <Filter>Resource</Filter>
-    </None>
     <None Include="Assets\Shaders\lamp.fs">
       <Filter>Resource</Filter>
     </None>
@@ -103,12 +103,6 @@
       <Filter>Resource</Filter>
     </None>
     <None Include="Assets\Shaders\materials.vs">
-      <Filter>Resource</Filter>
-    </None>
-    <None Include="Assets\Shaders\Triangle.fs">
-      <Filter>Resource</Filter>
-    </None>
-    <None Include="Assets\Shaders\Triangle.vs">
       <Filter>Resource</Filter>
     </None>
     <None Include="Assets\Shaders\model.fs">
@@ -123,12 +117,6 @@
     <None Include="Assets\Shaders\skybox.vs">
       <Filter>Resource</Filter>
     </None>
-    <None Include="Assets\Shaders\fog.fs">
-      <Filter>Resource</Filter>
-    </None>
-    <None Include="Assets\Shaders\fog.vs">
-      <Filter>Resource</Filter>
-    </None>
     <None Include="Assets\Shaders\star.fs">
       <Filter>Resource</Filter>
     </None>
@@ -136,6 +124,12 @@
       <Filter>Resource</Filter>
     </None>
     <None Include="Assets\Shaders\star.vs">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="Assets\Shaders\multi_light.fs">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="Assets\Shaders\multi_light.vs">
       <Filter>Resource</Filter>
     </None>
   </ItemGroup>

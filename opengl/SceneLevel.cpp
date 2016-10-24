@@ -20,6 +20,7 @@
 #include "GeometryModel.h"
 
 
+
 GeometryModel *geomModel;
 //MaterialBox matbox;
 
@@ -43,23 +44,16 @@ void CSceneLevel::InitLevel(int level)
 
 	//// Build and compile our shader program
 	ResourceManager::LoadShader("Assets/Shaders/materials.vs", "Assets/Shaders/materials.fs", nullptr, "lightingShader");
+	//ResourceManager::LoadShader("Assets/Shaders/ptlight.vs", "Assets/Shaders/ptlight.fs", nullptr, "ptLightShader");
 	ResourceManager::LoadShader("Assets/Shaders/lamp.vs", "Assets/Shaders/lamp.fs", nullptr, "lampShader");
 	ResourceManager::LoadShader("Assets/Shaders/model.vs", "Assets/Shaders/model.fs", nullptr, "modelShader");
-	
 	ResourceManager::LoadShader("Assets/Shaders/skybox.vs", "Assets/Shaders/skybox.fs", nullptr, "SkyboxShader");
-
 
 	ResourceManager::LoadShader("Assets/Shaders/star.vs", "Assets/Shaders/star.fs", "Assets/Shaders/star.gs", "StarShader");
 	// geometrymodel star
 	geomModel = new GeometryModel();
 	geomModel->setPosition(glm::vec3(6.0f, 1.0f, 0.0f));
 
-	
-	
-	/*CLoadModel CastleModel("Assets/Models/castle/Castle OBJ.obj");
-	CLoadModel NanoModel("Assets/Models/nanosuit/nanosuit.obj");*/
-	//ResourceManager::LoadShader("Assets/Shaders/lamp.vs", "Assets/Shaders/lamp.fs", nullptr, "CastleModel");
-	// Set up vertex data (and buffer(s)) and attribute pointers
 	
 	GLfloat vertices[] = {
 		// Positions           // Normals           // Texture Coords
@@ -170,12 +164,6 @@ void CSceneLevel::InitLevel(int level)
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
 	glBindVertexArray(0);
-	// Texture Coords Attribute
-	//glEnableVertexAttribArray(2);
-	//glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-	//glBindVertexArray(0);
-
-	//matbox.Init();
 
 
 //	the light's VAO (VBO stays the same. After all, the vertices are the same for the light object (also a 3D cube))
@@ -242,18 +230,8 @@ void CSceneLevel::Render(Camera camera)
 
 	glDepthMask(GL_TRUE);
 
-
-	glEnable(GL_FOG);
-
-	glFogi(GL_FOG_MODE, GL_LINEAR);
-	glFogi(GL_FOG_INDEX, 32);
-	glFogf(GL_FOG_START, 1.0);
-	glFogf(GL_FOG_END, 6.0);
-	glHint(GL_FOG_HINT, GL_NICEST);
-	glClearIndex((GLfloat)(32 + 16 - 1));
-
-
-						  // Change the light's position values over time (can be done anywhere in the game loop actually, but try to do it at least before using the light source positions)
+	
+	 // Change the light's position values over time (can be done anywhere in the game loop actually, but try to do it at least before using the light source positions)
 	lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
 	lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
 
@@ -271,6 +249,10 @@ void CSceneLevel::Render(Camera camera)
 	ResourceManager::GetShader("lightingShader").Use().SetVector3f("light.ambient", ambientColor.x, ambientColor.y, ambientColor.z);
 	ResourceManager::GetShader("lightingShader").Use().SetVector3f("light.diffuse", diffuseColor.x, diffuseColor.y, diffuseColor.z);
 	ResourceManager::GetShader("lightingShader").Use().SetVector3f("light.specular", 1.0f, 1.0f, 1.0f);
+	ResourceManager::GetShader("lightingShader").Use().SetFloat("light.constant", 1.0f);
+	ResourceManager::GetShader("lightingShader").Use().SetFloat("light.linear", 0.09f);
+	ResourceManager::GetShader("lightingShader").Use().SetFloat("light.quadratic", 0.032f);
+
 	// Set material properties
 	ResourceManager::GetShader("lightingShader").Use().SetVector3f("material.ambient", 1.0f, 0.5f, 0.31f);
 	ResourceManager::GetShader("lightingShader").Use().SetVector3f("material.diffuse", 1.0f, 0.5f, 0.31f);
@@ -300,7 +282,7 @@ void CSceneLevel::Render(Camera camera)
 
 	ResourceManager::GetShader("lampShader").Use().SetMatrix4("view", view);
 	ResourceManager::GetShader("lampShader").Use().SetMatrix4("projection", projection);
-
+	ResourceManager::GetShader("lampShader").Use().SetVector3f("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
 
 	model = glm::mat4();
 	model = glm::translate(model, lightPos);

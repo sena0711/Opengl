@@ -130,6 +130,7 @@
     <ClCompile Include="SceneLevel.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="TessModel.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,26 +145,23 @@
     <ClInclude Include="SceneLevel.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="TessModel.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\basic_lighting.fs" />
-    <None Include="Assets\Shaders\basic_lighting.vs" />
-    <None Include="Assets\Shaders\fog.fs" />
-    <None Include="Assets\Shaders\fog.vs" />
     <None Include="Assets\Shaders\lamp.fs" />
     <None Include="Assets\Shaders\lamp.vs" />
     <None Include="Assets\Shaders\materials.fs" />
     <None Include="Assets\Shaders\materials.vs" />
     <None Include="Assets\Shaders\model.fs" />
     <None Include="Assets\Shaders\model.vs" />
+    <None Include="Assets\Shaders\multi_light.fs" />
+    <None Include="Assets\Shaders\multi_light.vs" />
     <None Include="Assets\Shaders\skybox.fs" />
     <None Include="Assets\Shaders\skybox.vs" />
     <None Include="Assets\Shaders\star.fs" />
     <None Include="Assets\Shaders\star.gs" />
     <None Include="Assets\Shaders\star.vs" />
-    <None Include="Assets\Shaders\Triangle.fs" />
-    <None Include="Assets\Shaders\Triangle.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

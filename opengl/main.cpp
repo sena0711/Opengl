@@ -18,6 +18,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void do_movement();
+void do_light_movement();
 void back_Culling();
 bool enableCulling = false;
 GLuint generateMultiSampleTexture(GLuint samples);
@@ -205,6 +206,20 @@ void do_movement()
 	
 
 }
+//void do_light_movement()
+//{
+//	//// Camera controls
+//	//if (keys[GLFW_KEY_W])
+//	//	camera.ProcessKeyboard(FORWARD, deltaTime);
+//	//if (keys[GLFW_KEY_S])
+//	//	camera.ProcessKeyboard(BACKWARD, deltaTime);
+//	//if (keys[GLFW_KEY_A])
+//	//	camera.ProcessKeyboard(LEFT, deltaTime);
+//	//if (keys[GLFW_KEY_D])
+//	//	camera.ProcessKeyboard(RIGHT, deltaTime);
+//
+//
+//}
 
 GLuint generateMultiSampleTexture(GLuint samples)
 {

@@ -5,6 +5,7 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
+out vec4 mWorldPos;
 
 void main()
 {
