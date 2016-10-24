@@ -49,7 +49,7 @@ void main()
     
      //fragment shader for fog
     float d = distance(mWorldPos.xyz,viewPos);// cameraPos);
-    float lerp = (d - 5.0f)/10.f;
+    float lerp = (d - 5.0f)/5.0f;//10.0f;
     lerp = clamp(lerp, 0.0, 1.0);
     vec4 vFogColor = vec4(0.5f, 0.5f, 0.5f, 1.0f);
     color = mix(color, vFogColor, lerp);

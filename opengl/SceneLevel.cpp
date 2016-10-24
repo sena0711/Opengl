@@ -60,6 +60,7 @@ void CSceneLevel::InitLevel(int level)
 	CLoadModel NanoModel("Assets/Models/nanosuit/nanosuit.obj");*/
 	//ResourceManager::LoadShader("Assets/Shaders/lamp.vs", "Assets/Shaders/lamp.fs", nullptr, "CastleModel");
 	// Set up vertex data (and buffer(s)) and attribute pointers
+	
 	GLfloat vertices[] = {
 		// Positions           // Normals           // Texture Coords
 		// Back Face
@@ -224,7 +225,7 @@ void CSceneLevel::Render(Camera camera)
 	glDepthMask(GL_FALSE);// Remember to turn depth writing off for skybox
 	
 	glm::mat4 view = glm::mat4(glm::mat3(camera.GetViewMatrix()));	// Remove any translation component of the view matrix
-	glm::mat4 projection = glm::perspective(camera.Zoom, (float)Width / (float)Height, 0.1f, 10.0f);
+	glm::mat4 projection = glm::perspective(camera.Zoom, (float)Width / (float)Height, 0.1f, 300.0f);
 
 						  // Activate skybox shader
 	
@@ -312,6 +313,9 @@ void CSceneLevel::Render(Camera camera)
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glBindVertexArray(0);
+
+	geomModel->render(camera);
+
 }
 
 GLboolean CSceneLevel::IsCompleted()

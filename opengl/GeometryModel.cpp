@@ -1,5 +1,7 @@
 #include "GeometryModel.h"
 
+#include "ResourceManager.h"
+
 //GeometryModel::GeometryModel()
 //{
 //}
@@ -44,13 +46,23 @@ GeometryModel::~GeometryModel()
 }
 
 
-void GeometryModel::render() {
-	glUseProgram(this->program);
+void GeometryModel::render(Camera camera) {
+	//glUseProgram(this->program);
 	glm::mat4 model;
+	//model = glm::translate(model, position);
+	//glm::mat4 mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
+	//GLint vpLoc = glGetUniformLocation(program, "mvp");
+	//glUniformMatrix4fv(vpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
+	//glBindVertexArray(vao);
+	//glDrawArrays(GL_POINTS, 0, 1);
+	//glBindVertexArray(0);
+
+	//glm::vec3 pos = geomModel->getPosition;
+	model = glm::mat4();
 	model = glm::translate(model, position);
-	glm::mat4 mvp = camera->GetProjectionMatrix() * camera->GetViewMatrix() * model;
-	GLint vpLoc = glGetUniformLocation(program, "mvp");
-	glUniformMatrix4fv(vpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
+	glm::mat4 mvp = camera.GetProjectionMatrix() * camera.GetViewMatrix() * model;
+	ResourceManager::GetShader("StarShader").Use().SetMatrix4("mvp", mvp);
+
 	glBindVertexArray(vao);
 	glDrawArrays(GL_POINTS, 0, 1);
 	glBindVertexArray(0);
@@ -59,4 +71,9 @@ void GeometryModel::render() {
 void GeometryModel::setPosition(glm::vec3 pos)
 {
 	position = pos;
+}
+
+glm::vec3 GeometryModel::getPosition()
+{
+	return glm::vec3(position);
 }

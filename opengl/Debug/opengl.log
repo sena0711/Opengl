@@ -1,12 +1,9 @@
 ﻿  SceneLevel.cpp
-f:\programing\opengl\opengl\scenelevel.cpp(256): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 f:\programing\opengl\opengl\scenelevel.cpp(257): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-f:\programing\opengl\opengl\scenelevel.cpp(265): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+f:\programing\opengl\opengl\scenelevel.cpp(258): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 f:\programing\opengl\opengl\scenelevel.cpp(266): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 f:\programing\opengl\opengl\scenelevel.cpp(267): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+f:\programing\opengl\opengl\scenelevel.cpp(268): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  GeometryModel.cpp
-  GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-  Generating Code...
   opengl.vcxproj -> F:\Programing\Opengl\Debug\opengl.exe
   opengl.vcxproj -> F:\Programing\Opengl\Debug\opengl.pdb (Partial PDB)

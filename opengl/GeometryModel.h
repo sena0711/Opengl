@@ -12,8 +12,9 @@ public:
 	GeometryModel();
 	~GeometryModel();
 	void InitGeometryModel(GLuint program, Camera* camera);
-	void render();
+	void render(Camera camera);
 	void setPosition(glm::vec3 pos);
+	glm::vec3 getPosition();
 	GLuint program;
 	Camera *camera;
 	GLuint vbo, vao;
