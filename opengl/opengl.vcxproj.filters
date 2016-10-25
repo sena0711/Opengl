@@ -15,6 +15,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Resource\Tessellation">
+      <UniqueIdentifier>{80edeb45-32cc-49eb-9466-a4cb64256bcf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -131,6 +134,27 @@
     </None>
     <None Include="Assets\Shaders\multi_light.vs">
       <Filter>Resource</Filter>
+    </None>
+    <None Include="Assets\Shaders\tess_frag.fs">
+      <Filter>Resource\Tessellation</Filter>
+    </None>
+    <None Include="Assets\Shaders\tess_geo.gs">
+      <Filter>Resource\Tessellation</Filter>
+    </None>
+    <None Include="Assets\Shaders\tess_quad.tcs">
+      <Filter>Resource\Tessellation</Filter>
+    </None>
+    <None Include="Assets\Shaders\tess_quad.tes">
+      <Filter>Resource\Tessellation</Filter>
+    </None>
+    <None Include="Assets\Shaders\tess_tri.tcs">
+      <Filter>Resource\Tessellation</Filter>
+    </None>
+    <None Include="Assets\Shaders\tess_tri.tes">
+      <Filter>Resource\Tessellation</Filter>
+    </None>
+    <None Include="Assets\Shaders\tess_vert.vs">
+      <Filter>Resource\Tessellation</Filter>
     </None>
   </ItemGroup>
 </Project>

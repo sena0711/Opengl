@@ -17,6 +17,13 @@ CShader ResourceManager::LoadShader(const GLchar *vShaderFile, const GLchar *fSh
 	return Shaders[name];
 }
 
+CShader ResourceManager::LoadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile,
+	const GLchar *TessControlSource, const GLchar *TessEvalSource, std::string name)
+{
+	Shaders[name] = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile, TessControlSource, TessEvalSource);
+	return Shaders[name];
+}
+
 CShader ResourceManager::GetShader(std::string name)
 {
 	return Shaders[name];
@@ -81,6 +88,68 @@ CShader ResourceManager::loadShaderFromFile(const GLchar *vShaderFile, const GLc
 	const GLchar *vShaderCode = vertexCode.c_str();
 	const GLchar *fShaderCode = fragmentCode.c_str();
 	const GLchar *gShaderCode = geometryCode.c_str();
+	// 2. Now create shader object from source code
+	CShader shader;
+	shader.Compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
+	return shader;
+}
+
+
+CShader ResourceManager::loadShaderFromFile(const GLchar *vShaderFile, 
+	const GLchar *fShaderFile, const GLchar *gShaderFile,
+	const GLchar *TessControlSource, const GLchar *TessEvalSource)
+{
+	// 1. Retrieve the vertex/fragment source code from filePath
+	std::string vertexCode;
+	std::string fragmentCode;
+	std::string geometryCode;
+	std::string TessControlCode;
+	std::string TessEvalCode;
+	try
+	{
+		// Open files
+		std::ifstream vertexShaderFile(vShaderFile);
+		std::ifstream fragmentShaderFile(fShaderFile);
+		std::ifstream TessControlFile(TessControlSource);
+		std::ifstream TessEvalFile(TessEvalSource);
+		std::stringstream vShaderStream, fShaderStream, tcShaderStream, teShaderStream;
+		// Read file's buffer contents into streams
+		vShaderStream << vertexShaderFile.rdbuf();
+		fShaderStream << fragmentShaderFile.rdbuf();
+		tcShaderStream << TessControlFile.rdbuf();
+		teShaderStream << TessEvalFile.rdbuf();
+		// close file handlers
+		vertexShaderFile.close();
+		fragmentShaderFile.close();
+		TessControlFile.close();
+		TessEvalFile.close();
+		// Convert stream into string
+		vertexCode = vShaderStream.str();
+		fragmentCode = fShaderStream.str();
+		TessControlCode = tcShaderStream.str();
+		TessEvalCode = teShaderStream.str();
+		// If geometry shader path is present, also load a geometry shader
+		if (gShaderFile != nullptr)
+		{
+			std::ifstream geometryShaderFile(gShaderFile);
+			std::stringstream gShaderStream;
+			gShaderStream << geometryShaderFile.rdbuf();
+			geometryShaderFile.close();
+			geometryCode = gShaderStream.str();
+		}
+
+
+
+	}
+	catch (std::exception e)
+	{
+		std::cout << "ERROR::SHADER: Failed to read shader files" << std::endl;
+	}
+	const GLchar *vShaderCode = vertexCode.c_str();
+	const GLchar *fShaderCode = fragmentCode.c_str();
+	const GLchar *gShaderCode = geometryCode.c_str();
+	const GLchar *tcShaderCode = TessControlCode.c_str();
+	const GLchar *tehaderCode = TessEvalCode.c_str();
 	// 2. Now create shader object from source code
 	CShader shader;
 	shader.Compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);

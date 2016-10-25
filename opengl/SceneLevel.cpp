@@ -18,10 +18,12 @@
 #include "MaterialBox.h"
 #include "LoadModel.h"
 #include "GeometryModel.h"
+#include "TessModel.h"
 
 
 
 GeometryModel *geomModel;
+TessModel *tessModel;
 //MaterialBox matbox;
 
 
@@ -48,13 +50,15 @@ void CSceneLevel::InitLevel(int level)
 	ResourceManager::LoadShader("Assets/Shaders/lamp.vs", "Assets/Shaders/lamp.fs", nullptr, "lampShader");
 	ResourceManager::LoadShader("Assets/Shaders/model.vs", "Assets/Shaders/model.fs", nullptr, "modelShader");
 	ResourceManager::LoadShader("Assets/Shaders/skybox.vs", "Assets/Shaders/skybox.fs", nullptr, "SkyboxShader");
-
+	ResourceManager::LoadShader("Assets/Shaders/tess_vert.vs", "Assets/Shaders/tess_frag.fs", nullptr, "Assets/Shaders/tess_quad.tcs", "Assets/Shaders/tess_quad.tes", "TessShader");
 	ResourceManager::LoadShader("Assets/Shaders/star.vs", "Assets/Shaders/star.fs", "Assets/Shaders/star.gs", "StarShader");
 	// geometrymodel star
 	geomModel = new GeometryModel();
 	geomModel->setPosition(glm::vec3(6.0f, 1.0f, 0.0f));
 
-	
+	//tess 
+	tessModel = new TessModel();
+
 	GLfloat vertices[] = {
 		// Positions           // Normals           // Texture Coords
 		// Back Face
@@ -232,8 +236,33 @@ void CSceneLevel::Render(Camera camera)
 
 	
 	 // Change the light's position values over time (can be done anywhere in the game loop actually, but try to do it at least before using the light source positions)
-	lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
-	lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
+	
+	
+	Camera_Movement dir = camera.Getlightmovement();
+	if (dir == FORWARD)
+	{
+		lightPos.y = lightPos.y + 0.01f;
+		dir = NONE;
+	}
+	if (dir == BACKWARD)
+	{
+		lightPos.y = lightPos.y - 0.01f;
+		dir = NONE;
+	}
+	if (dir == LEFT)
+	{
+		lightPos.x = lightPos.x - 0.01f;
+		dir = NONE;
+	}
+	if (dir == RIGHT)
+	{
+		lightPos.x = lightPos.x + 0.01f;
+		dir = NONE;
+	}
+
+
+	//lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
+	//lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
 
 	ResourceManager::GetShader("lightingShader").Use().SetVector3f("light.position", lightPos.x, lightPos.y, lightPos.z);
 	ResourceManager::GetShader("lightingShader").Use().SetVector3f("viewPos", camera.Position.x, camera.Position.y, camera.Position.z);
@@ -300,6 +329,8 @@ void CSceneLevel::Render(Camera camera)
 	/*glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glColor3f(1, 0.5, 0);*/
 	geomModel->render(camera);
+
+	tessModel->render(camera);
 
 }
 

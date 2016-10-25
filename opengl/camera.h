@@ -15,7 +15,8 @@ enum Camera_Movement {
     FORWARD,
     BACKWARD,
     LEFT,
-    RIGHT
+    RIGHT,
+	NONE
 };
 
 // Default camera values
@@ -45,6 +46,7 @@ public:
     GLfloat Zoom;
 
 	GLuint Width, Height;
+	Camera_Movement lightmovement;
 
     // Constructor with vectors
     Camera(GLuint width, GLuint height,glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), GLfloat yaw = YAW, GLfloat pitch = PITCH) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVTY), Zoom(ZOOM)
@@ -69,6 +71,16 @@ public:
         this->updateCameraVectors();
     }
 
+	void Setlightmovement(Camera_Movement dir)
+	{
+		lightmovement = dir;
+	}
+
+	Camera_Movement Getlightmovement()
+	{
+		return lightmovement;
+	}
+	
     // Returns the view matrix calculated using Eular Angles and the LookAt Matrix
     glm::mat4 GetViewMatrix()
     {

@@ -2,7 +2,9 @@
 
 
 
-TessModel::TessModel(GLuint program, Camera* camera) {
+TessModel::TessModel() {
+
+	Position = glm::vec3(6.0f, -2.0f, 0.0f);
 	GLfloat points[] = {
 		-1.0f, -1.0f, 0.0f,
 		1.0f, -1.0f, 0.0f,
@@ -39,11 +41,12 @@ void TessModel::render(Camera camera) {
 	model = glm::translate(model, Position);
 	glm::mat4 mvp = camera.GetProjectionMatrix() * camera.GetViewMatrix() * model;
 
-	ResourceManager::GetShader("StarShader").Use().SetMatrix4("mvp", mvp);
-
+	ResourceManager::GetShader("TessShader").Use().SetMatrix4("mvp", mvp);
+	//ResourceManager::GetShader("TessShader").Use().SetMatrix4("projectionMatrix", Projection);
+	//ResourceManager::GetShader("TessShader").Use().SetMatrix4("modelViewMatrix", Modelview);
 	//GLint mvLoc = glGetUniformLocation(program, "mvp");
 	//glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvp));
-	//glBindVertexArray(vao);
-	//glDrawArrays(GL_PATCHES, 0, 4);
-	//glBindVertexArray(0);
+	glBindVertexArray(m_VAO);
+	glDrawArrays(GL_PATCHES, 0, 4);
+	glBindVertexArray(0);
 }

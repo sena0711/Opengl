@@ -20,8 +20,8 @@ public:
 	CShader  &Use();
 	// Compiles the shader from given source code
 	void    Compile(const GLchar *vertexSource, const GLchar *fragmentSource, const GLchar *geometrySource = nullptr); // Note: geometry source code is optional 
-																													   // Utility functions
-
+	void    CompileTess(const GLchar *vertexSource, const GLchar *fragmentSource, const GLchar *geometrySource = nullptr, const GLchar *TessControlSource = nullptr, const GLchar *TessEvalSource = nullptr); // Note: geometry source code is optional 
+	
 	// Utility functions
 	void    SetFloat(const GLchar *name, GLfloat value, GLboolean useShader = false);
 	void    SetInteger(const GLchar *name, GLint value, GLboolean useShader = false);

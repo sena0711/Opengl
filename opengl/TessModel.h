@@ -12,7 +12,7 @@ class TessModel: public CSceneObject
 {
 
 public:
-	TessModel(GLuint program, Camera* camera);
+	TessModel();
 	~TessModel();
 	void render(Camera camera);
 };

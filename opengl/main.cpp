@@ -46,6 +46,7 @@ CScene game(WIDTH, HEIGHT);
 							// The MAIN function, from here we start the application and run the game loop
 int main()
 {
+	camera.lightmovement = NONE;
 	// Init GLFW
 	glfwInit();
 	// Set all the required options for GLFW
@@ -125,6 +126,7 @@ int main()
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
 		do_movement();
+		do_light_movement();
 		back_Culling();
 
 		game.ProcessInput(deltaTime);
@@ -206,20 +208,18 @@ void do_movement()
 	
 
 }
-//void do_light_movement()
-//{
-//	//// Camera controls
-//	//if (keys[GLFW_KEY_W])
-//	//	camera.ProcessKeyboard(FORWARD, deltaTime);
-//	//if (keys[GLFW_KEY_S])
-//	//	camera.ProcessKeyboard(BACKWARD, deltaTime);
-//	//if (keys[GLFW_KEY_A])
-//	//	camera.ProcessKeyboard(LEFT, deltaTime);
-//	//if (keys[GLFW_KEY_D])
-//	//	camera.ProcessKeyboard(RIGHT, deltaTime);
-//
-//
-//}
+void do_light_movement()
+{
+	if (keys[GLFW_KEY_I])
+		camera.Setlightmovement(FORWARD);
+	if (keys[GLFW_KEY_K])
+		camera.Setlightmovement(BACKWARD);
+	if (keys[GLFW_KEY_J])
+		camera.Setlightmovement(LEFT);
+	if (keys[GLFW_KEY_L])
+		camera.Setlightmovement(RIGHT);
+}
+
 
 GLuint generateMultiSampleTexture(GLuint samples)
 {

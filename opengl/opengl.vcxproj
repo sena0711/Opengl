@@ -162,6 +162,13 @@
     <None Include="Assets\Shaders\star.fs" />
     <None Include="Assets\Shaders\star.gs" />
     <None Include="Assets\Shaders\star.vs" />
+    <None Include="Assets\Shaders\tess_frag.fs" />
+    <None Include="Assets\Shaders\tess_geo.gs" />
+    <None Include="Assets\Shaders\tess_quad.tcs" />
+    <None Include="Assets\Shaders\tess_quad.tes" />
+    <None Include="Assets\Shaders\tess_tri.tcs" />
+    <None Include="Assets\Shaders\tess_tri.tes" />
+    <None Include="Assets\Shaders\tess_vert.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -25,6 +25,8 @@ public:
 	static std::map<std::string, CTexture> Textures;
 	// Loads (and generates) a shader program from file loading vertex, fragment (and geometry) shader's source code. If gShaderFile is not nullptr, it also loads a geometry shader
 	static CShader   LoadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, std::string name);
+	static CShader   LoadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, const GLchar * TessControlSource, const GLchar * TessEvalSource, std::string name);
+
 	// Retrieves a stored sader
 	static CShader   GetShader(std::string name);
 	// Loads (and generates) a texture from file
@@ -38,6 +40,8 @@ private:
 	ResourceManager() { }
 	// Loads and generates a shader from file
 	static CShader    loadShaderFromFile(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile = nullptr);
+	static CShader loadShaderFromFile(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, const GLchar *TessControlSource, const GLchar *TessEvalSource);
+	
 	// Loads a single texture from file
 	static CTexture loadTextureFromFile(const GLchar *file, GLboolean alpha);
 };
